@@ -1,43 +1,47 @@
 import  { useState } from "react";
 
 function PersonForm({ persons, setPersons }) {
-  const [newName, setNewName] = useState("");
-  const [newNumber, setNewNumber] = useState("");
-
+//   const [newName, setNewName] = useState("");
+//   const [newNumber, setNewNumber] = useState("");
+    const [form, setForm] = useState({newName:"", newNumber:""})
+    console.log("the form object =", form)
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (
       persons.some((person) => {
-        return person.name === newName;
+        return person.name === form.newName;
       }) ||
       persons.some((person) => {
-        return person.number === newNumber;
+        return person.number === form.newNumber;
       })
     ) {
-      alert(`${newName} or ${newNumber} is already exist in the phonebook `);
+      alert(`${form.newName} or ${form.newNumber} is already exist in the phonebook `);
       return;
     }
-    setPersons((persons) => [...persons, { name: newName, number: newNumber , id: crypto.randomUUID() }]);
-    setNewName("");
-    setNewNumber("");
+    setPersons((persons) => [...persons, { name: form.newName, number: form.newNumber , id: crypto.randomUUID() }]);
+    // form.newName("");
+    // form.newNumber("");
+    // setForm((entity)=>{...entity, newName:"", newNumber:""} )
+    setForm((entity)=>{return { ...entity, newName:"", newNumber:""}})
+
   };
   return (
     <form onSubmit={formSubmitHandler}>
       <div>
         name:{" "}
         <input
-          value={newName}
+          value={form.newName}
           onChange={(e) => {
-            setNewName(e.target.value);
+            setForm({ ...form, newName: e.target.value });
           }}
         />
       </div>
       <div>
         number:{" "}
         <input
-          value={newNumber}
+          value={form.newNumber}
           onChange={(e) => {
-            setNewNumber(e.target.value);
+            setForm((entity)=>{return {...entity, newNumber: e.target.value}});
           }}
         />
       </div>
