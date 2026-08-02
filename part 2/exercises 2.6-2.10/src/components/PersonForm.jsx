@@ -1,10 +1,10 @@
-import  { useState } from "react";
+import { useState } from "react";
 
 function PersonForm({ persons, setPersons }) {
-//   const [newName, setNewName] = useState("");
-//   const [newNumber, setNewNumber] = useState("");
-    const [form, setForm] = useState({newName:"", newNumber:""})
-    console.log("the form object =", form)
+  //   const [newName, setNewName] = useState("");
+  //   const [newNumber, setNewNumber] = useState(""); //We can not make and maintain separate states for different inpputs in general forms
+  const [form, setForm] = useState({ newName: "", newNumber: "" });
+  console.log("the form object =", form);
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (
@@ -15,15 +15,21 @@ function PersonForm({ persons, setPersons }) {
         return person.number === form.newNumber;
       })
     ) {
-      alert(`${form.newName} or ${form.newNumber} is already exist in the phonebook `);
+      alert(
+        `${form.newName} or ${form.newNumber} is already exist in the phonebook `,
+      );
       return;
     }
-    setPersons((persons) => [...persons, { name: form.newName, number: form.newNumber , id: crypto.randomUUID() }]);
+    setPersons((persons) => [
+      ...persons,
+      { name: form.newName, number: form.newNumber, id: crypto.randomUUID() },
+    ]);
     // form.newName("");
     // form.newNumber("");
     // setForm((entity)=>{...entity, newName:"", newNumber:""} )
-    setForm((entity)=>{return { ...entity, newName:"", newNumber:""}})
-
+    setForm((entity) => {
+      return { ...entity, newName: "", newNumber: "" };
+    });
   };
   return (
     <form onSubmit={formSubmitHandler}>
@@ -41,7 +47,9 @@ function PersonForm({ persons, setPersons }) {
         <input
           value={form.newNumber}
           onChange={(e) => {
-            setForm((entity)=>{return {...entity, newNumber: e.target.value}});
+            setForm((entity) => {
+              return { ...entity, newNumber: e.target.value };
+            });
           }}
         />
       </div>
