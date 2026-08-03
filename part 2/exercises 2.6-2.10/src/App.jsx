@@ -6,7 +6,7 @@ import axios from "axios";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
-
+  const [refresh, setRefresh] = useState(false);
   const [filteresPersonas, setFilteresPersonas] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const App = () => {
       .get("http://localhost:3001/persons")
       .then((res) => {
         setPersons(res.data);
-        console.log("Our responce = ", res.data)
+        console.log("Our responce = ", res.data);
       })
       .catch((error) =>
         console.log(
@@ -25,14 +25,13 @@ const App = () => {
       .finally(() =>
         console.log("The data is successfully fetched from the json server"),
       );
-
-  }, []);
+  }, [refresh]);
 
   return (
     <div>
       <h2>Phonebook</h2>
       <Search persons={persons} setFilteresPersonas={setFilteresPersonas} />
-      <PersonForm persons={persons} setPersons={setPersons} />
+      <PersonForm persons={persons} setPersons={setPersons} setRefresh={setRefresh}/>
 
       <h2>Numbers</h2>
       <ul style={{ listStyle: "none" }}>

@@ -1,34 +1,53 @@
+import axios from "axios";
 import { useState } from "react";
 
-function PersonForm({ persons, setPersons }) {
-  //   const [newName, setNewName] = useState("");
-  //   const [newNumber, setNewNumber] = useState(""); //We can not make and maintain separate states for different inpputs in general forms
-  const [form, setForm] = useState({ newName: "", newNumber: "" });
+function PersonForm({ persons, setRefresh }) {
+  //   const [name, setname] = useState("");
+  //   const [number, setnumber] = useState(""); //We can not make and maintain separate states for different inpputs in general forms
+  const [form, setForm] = useState({ name: "", number: "" });
   console.log("the form object =", form);
   const formSubmitHandler = (e) => {
     e.preventDefault();
     if (
       persons.some((person) => {
-        return person.name === form.newName;
+        return person.name === form.name;
       }) ||
       persons.some((person) => {
-        return person.number === form.newNumber;
+        return person.number === form.number;
       })
     ) {
       alert(
-        `${form.newName} or ${form.newNumber} is already exist in the phonebook `,
+        `${form.name} or ${form.number} is already exist in the phonebook `,
       );
       return;
     }
-    setPersons((persons) => [
-      ...persons,
-      { name: form.newName, number: form.newNumber, id: crypto.randomUUID() },
-    ]);
-    // form.newName("");
-    // form.newNumber("");
-    // setForm((entity)=>{...entity, newName:"", newNumber:""} )
+    // setPersons((persons) => [
+    //   ...persons,
+    //   { name: form.name, number: form.number, id: crypto.randomUUID() },
+    // ]);
+
+    // axios //Axios makes the things easy for us such as the one example is given below
+    //   .post("http://localhost:3001/persons", form)
+
+    fetch("http://localhost:3001/persons", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(form),
+    })
+      .then((res) => {
+        setRefresh((before) => !before);
+        console.log("the responce we get fromt he post req = ", res);
+      })
+      .catch((error) =>
+        console.log("the error we got from the post request ", error),
+      );
+    // form.name("");
+    // form.number("");
+    // setForm((entity)=>{...entity, name:"", number:""} )
     setForm((entity) => {
-      return { ...entity, newName: "", newNumber: "" };
+      return { ...entity, name: "", number: "" };
     });
   };
   return (
@@ -36,19 +55,19 @@ function PersonForm({ persons, setPersons }) {
       <div>
         name:{" "}
         <input
-          value={form.newName}
+          value={form.name}
           onChange={(e) => {
-            setForm({ ...form, newName: e.target.value });
+            setForm({ ...form, name: e.target.value });
           }}
         />
       </div>
       <div>
         number:{" "}
         <input
-          value={form.newNumber}
+          value={form.number}
           onChange={(e) => {
             setForm((entity) => {
-              return { ...entity, newNumber: e.target.value };
+              return { ...entity, number: e.target.value };
             });
           }}
         />

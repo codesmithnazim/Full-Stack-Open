@@ -1,24 +1,60 @@
 {
-  "persons":[
-    { 
-      "name": "Arto Hellas", 
-      "number": "040-123456",
-      "id": "1"
+  "persons": [
+    {
+      "id": "1",
+      "name": "evon lewis",
+      "number": "+912 31231231233"
     },
-    { 
-      "name": "Ada Lovelace", 
-      "number": "39-44-5323523",
-      "id": "2"
+    {
+      "id": "2",
+      "name": "Kameron delut",
+      "number": "+99 311231233"
     },
-    { 
-      "name": "Dan Abramov", 
-      "number": "12-43-234345",
-      "id": "3"
+    {
+      "id": "3",
+      "name": "Micheal Sparkman",
+      "number": "+94 343242342"
     },
-    { 
-      "name": "Mary Poppendieck", 
-      "number": "39-23-6423122",
-      "id": "4"
+    {
+      "id": "4",
+      "name": "william goof",
+      "number": "+923 41114452"
+    },
+    {
+      "name": "Murtasim Bhittani",
+      "number": "+92 30685687878798",
+      "id": "paspjFYZF-o"
+    },
+    {
+      "name": "Khan wali",
+      "number": "+92 30685642321",
+      "id": "u_J7hCzs0UA"
+    },
+    {
+      "name": "Zaar Wali Khan",
+      "number": "+85 312312321",
+      "id": "p11AD16ZAUc"
+    },
+    {
+      "name": "Nazim Ud Din",
+      "number": "+92 000000000",
+      "id": "69S3a_xDZtc"
+    },
+    {
+      "name": "Momin Khan",
+      "number": "892813908129831",
+      "id": "qf9LudrrnF0"
+    },
+    {
+      "name": "Aziz Khan",
+      "number": "",
+      "id": "YhYThJGWui8"
+    },
+    {
+      "name": "adam khan",
+      "number": "890809809809",
+      "id": "p2QoLCaQi64"
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
