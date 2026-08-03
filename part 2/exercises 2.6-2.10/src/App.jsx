@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "./components/Search";
 import PersonForm from "./components/PersonForm";
 import EntirePerson from "./components/EntirePerson";
+import axios from "axios";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: "Arto Hellas",number:"+92 306000000", id: crypto.randomUUID() },
-    { name: "Jade Kolingam",number:"+92 1234241", id: crypto.randomUUID() },
-    { name: "Micheal Strawburn",number:"+92 432423423", id: crypto.randomUUID() },
-  ]);
+  const [persons, setPersons] = useState([]);
 
-  const [filteresPersonas, setFilteresPersonas] = useState([])  
+  const [filteresPersonas, setFilteresPersonas] = useState([]);
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then((res) => {
+        setPersons(res.data);
+        console.log("Our responce = ", res.data)
+      })
+      .catch((error) =>
+        console.log(
+          "The error catced during fetching from the json server",
+          error,
+        ),
+      )
+      .finally(() =>
+        console.log("The data is successfully fetched from the json server"),
+      );
 
-
+  }, []);
 
   return (
     <div>
@@ -22,9 +35,13 @@ const App = () => {
       <PersonForm persons={persons} setPersons={setPersons} />
 
       <h2>Numbers</h2>
-      <ul style={{listStyle:"none"}}>
+      <ul style={{ listStyle: "none" }}>
         {filteresPersonas.map((person) => (
-          <EntirePerson key={person.id} name={person.name} number={person.number}/>
+          <EntirePerson
+            key={person.id}
+            name={person.name}
+            number={person.number}
+          />
         ))}
       </ul>
     </div>
@@ -33,16 +50,10 @@ const App = () => {
 
 export default App;
 
+// Now we are using this same form in separate component
 
-
-
-
-
-
-
-         // Now we are using this same form in separate component
-
-      {/* <form onSubmit={formSubmitHandler}>
+{
+  /* <form onSubmit={formSubmitHandler}>
         <div>
           name: <input  value={newName} onChange={(e)=>{setNewName(e.target.value)}}/>
         </div>
@@ -52,4 +63,5 @@ export default App;
         <div>
           <button type="submit">add</button>
         </div>
-      </form> */}
+      </form> */
+}
