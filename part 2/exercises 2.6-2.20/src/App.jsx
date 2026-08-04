@@ -3,11 +3,15 @@ import Search from "./components/Search";
 import PersonForm from "./components/PersonForm";
 import EntirePerson from "./components/EntirePerson";
 import axios from "axios";
+import GreenNotification from "./components/GreenNotification";
+import RedNotification from "./components/RedNotification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [filteresPersonas, setFilteresPersonas] = useState([]);
+  const [PositiveNotification, setpositiveNotification] = useState("");
+  const [negativeNotification, setNegativeNotification] = useState('')
 
   useEffect(() => {
     axios
@@ -30,16 +34,26 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      {PositiveNotification && <GreenNotification message={PositiveNotification} />}
+      {negativeNotification && <RedNotification message={negativeNotification} />}
       <Search persons={persons} setFilteresPersonas={setFilteresPersonas} />
-      <PersonForm persons={persons} setPersons={setPersons} setRefresh={setRefresh}/>
+      <PersonForm
+        persons={persons}
+        setPersons={setPersons}
+        setRefresh={setRefresh}
+        setGreenNotification={setpositiveNotification}
+        setRedNotification={setNegativeNotification}
+        
+      />
 
       <h2>Numbers</h2>
       <ul style={{ listStyle: "none" }}>
         {filteresPersonas.map((person) => (
           <EntirePerson
             key={person.id}
-            name={person.name}
-            number={person.number}
+            person={person}
+            setPersons={setPersons}
+            setNegativeNotification={setNegativeNotification}
           />
         ))}
       </ul>

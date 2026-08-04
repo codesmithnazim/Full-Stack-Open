@@ -1,6 +1,6 @@
 import { useState } from "react";
 import phonebookServices from "../services/phonebook";
-function PersonForm({ persons, setRefresh }) {
+function PersonForm({ persons, setRefresh, setGreenNotification, setRedNotification }) {
   //   const [name, setname] = useState("");
   //   const [number, setnumber] = useState(""); //We can not make and maintain separate states for different inpputs in general forms
   const [form, setForm] = useState({ name: "", number: "" });
@@ -33,7 +33,11 @@ function PersonForm({ persons, setRefresh }) {
         return person.number === form.number;
       })
     ) {
-      alert(`${form.number} is already exist in the phonebook `);
+      setRedNotification(`${form.number} is already exist in the phonebook `);
+      setTimeout(() => {
+        setRedNotification('')
+      }, 2500)
+      
       return;
     }
     // setPersons((persons) => [
@@ -52,8 +56,12 @@ function PersonForm({ persons, setRefresh }) {
       body: JSON.stringify(form),
     })
       .then((res) => {
+        setGreenNotification("User is added successfully ....");
         setRefresh((before) => !before);
         console.log("the responce we get fromt he post req = ", res);
+        setTimeout(() => {
+          setGreenNotification("");
+        }, 3000);
       })
       .catch((error) =>
         console.log("the error we got from the post request ", error),

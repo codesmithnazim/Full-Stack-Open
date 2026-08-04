@@ -1,5 +1,5 @@
 {
-  "name": "exercises-2-6-2-10",
+  "name": "exercise-2-18-2-20",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,12 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "server": "npx json-server  db.json --port 3001",
-    "start": "concurrently \"vite\" \"npx json-server  db.json --port 3001\""
+    "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.19.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
@@ -21,12 +18,11 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
-    "concurrently": "^10.0.4",
+    "axios": "^1.19.0",
     "eslint": "^10.8.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.3",
     "globals": "^17.7.0",
-    "json-server": "^1.0.0-beta.15",
     "vite": "^8.2.0"
   }
 }

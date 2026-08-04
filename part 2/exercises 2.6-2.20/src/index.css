@@ -1,0 +1,26 @@
+.GreenNotification {
+  position: absolute;
+  color: green;
+  background-color: #ccc6c6;
+  padding: 15px 100px;
+  font-size: large;
+  width: fit-content;
+  border: 2px solid green;
+  font-weight:700 ;
+  left: 45%;
+  top: 38px;
+}
+
+.RedNotification {
+  /* position: absolute; */
+  color: red;
+  background-color: #ccc6c6;
+  padding: 15px 100px;
+  font-size: large;
+  width: fit-content;
+  border: 2px solid red;
+  /* left: 45%; */
+  top: 38px;
+  font-weight: 700;
+  margin: auto;
+}
