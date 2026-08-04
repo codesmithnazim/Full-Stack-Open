@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+// import "dotenv/config";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -22,17 +23,26 @@ function App() {
         `https://studies.cs.helsinki.fi/restcountries/api/name/${countryName}`,
       )
       .then((res) => {
-        setOneCountry((details) => {
-          return {
-            ...details,
-            id: crypto.randomUUID(),
-            name: res.data.name.common,
-            capital: res.data.capital,
-            area: res.data.area,
-            languages: res.data.languages,
-            flag: res.data.flags.png,
-          };
-        });
+        axios
+          .get(
+            `https://api.weatherapi.com/v1/current.json?key=${import.meta.env.VITE_WEATHER_API}&q=${res.data.capital}`,
+          )
+          .then((res2) => {
+            setOneCountry((details) => {
+              return {
+                ...details,
+                id: crypto.randomUUID(),
+                name: res.data.name.common,
+                capital: res.data.capital,
+                area: res.data.area,
+                languages: res.data.languages,
+                flag: res.data.flags.png,
+                temp_c: res2.data.current.temp_c,
+                wind_kph: res2.data.current.wind_kph,
+                icon: res2.data.current.condition.icon,
+              };
+            });
+          });
       });
   };
 
@@ -93,6 +103,10 @@ function App() {
             src={`${oneCountry.flag}`}
             alt={`The picture of ${oneCountry.name} flag `}
           />
+          <h2>Weather in {oneCountry.name} </h2>
+          <div>Temperature {oneCountry.temp_c} C </div>
+          <img src={`${oneCountry.icon}`} alt="the weather icon is missing" />
+          <div className="wind">wind {oneCountry.wind_kph} kph</div>
         </div>
       )}
     </div>
