@@ -27,7 +27,7 @@ let notes = [
 ];
 
 app
-  .get("/notes", (req, res) => {
+  .get("/api/notes", (req, res) => {
     // console.log(req)
     // I've written many ways to send the responce
     // res.status(200).json({data:notes}); //but express make it more easy like
@@ -46,6 +46,14 @@ app
     else
       res.status(404).send()
   });
+
+
+  app.delete('/api/notes/:id', (request, response) => {
+  const id = request.params.id
+  notes = notes.filter(note => note.id !== id)
+
+  response.send(notes)
+})
 
 app.listen(port, () => {
   console.log("Express server is running on port = ", port);
