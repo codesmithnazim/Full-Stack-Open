@@ -4,6 +4,10 @@ const PORT = 3001;
 
 app.use(express.json());
 app.use((req, res, next) => {
+  console.log(`Req type = ${req.method} , body = `, req.body);
+  next();
+});
+app.use((req, res, next) => {
   req.requestTime = new Date();
   next();
 });
@@ -55,12 +59,18 @@ app
       res.send({ error: "arrow of users can not be added " });
       return;
     }
-    if(!newPerson.name || !newPerson.number){
-      res.status(400).send({error: "user name or number is missing"})
-      
+    if (!newPerson.name || !newPerson.number) {
+      res.status(400).send({ error: "user name or number is missing" });
     }
-    if(persons.find(each=>each.name==newPerson.name || each.number==newPerson.number)){
-      res.status(400).send({error:`User with ${newPerson.name} name or ${newPerson.number} number already exists`})
+    if (
+      persons.find(
+        (each) =>
+          each.name == newPerson.name || each.number == newPerson.number,
+      )
+    ) {
+      res.status(400).send({
+        error: `User with ${newPerson.name} name or ${newPerson.number} number already exists`,
+      });
       return;
     }
 
@@ -71,4 +81,8 @@ app
   });
 app.listen(PORT, () => {
   console.log("The server is listening to the localhost on port = ", PORT);
+});
+
+app.use((req, res) => {
+  res.send({ error: "route not defined" });
 });
