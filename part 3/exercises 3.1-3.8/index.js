@@ -1,8 +1,10 @@
 import express from "express";
+import morgan from "morgan";
 const app = express();
 const PORT = 3001;
 
 app.use(express.json());
+app.use(morgan('tiny'))
 app.use((req, res, next) => {
   console.log(`Req type = ${req.method} , body = `, req.body);
   next();
@@ -61,6 +63,7 @@ app
     }
     if (!newPerson.name || !newPerson.number) {
       res.status(400).send({ error: "user name or number is missing" });
+      return;
     }
     if (
       persons.find(
