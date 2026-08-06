@@ -1,10 +1,16 @@
-import express from "express";
+import express, { json } from "express";
 import morgan from "morgan";
 const app = express();
 const PORT = 3001;
-
 app.use(express.json());
-app.use(morgan('tiny'))
+morgan.token("body", (req) => {
+  return JSON.stringify(req.body);
+});
+app.use(
+  morgan(
+    " :method :url :status :response-time ms - :res[content-length] - Body : :body",
+  ),
+);
 app.use((req, res, next) => {
   console.log(`Req type = ${req.method} , body = `, req.body);
   next();
