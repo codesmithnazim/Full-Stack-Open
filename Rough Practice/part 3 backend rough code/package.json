@@ -1,0 +1,25 @@
+{
+  "name": "part-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon nodeServer.js ",
+    "express": "nodemon expressServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"nodemon expressServer.js\" \"npx json-server notes.db.json\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.19.0",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.4",
+    "json-server": "^1.0.0-beta.15"
+  }
+}
