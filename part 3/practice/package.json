@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "jsonServer": "json-server -p 3001 db.json",
     "server": "concurrently \"npm run dev\" \" nodemon express.js\"",
+    "devServer": "nodemon express.json",
     "start": "node express.js"
   },
   "dependencies": {
