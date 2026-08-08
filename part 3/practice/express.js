@@ -9,7 +9,8 @@ app.use(express.json());
 app.use(express.static(path.join(process.cwd(),"dist")));
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://fullstackopen-e790a.containers.snapdeploy.app",
+    credentials:true
   }),
 );
 
