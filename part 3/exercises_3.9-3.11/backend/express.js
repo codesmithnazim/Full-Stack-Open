@@ -1,8 +1,11 @@
 import express, { json } from "express";
 import morgan from "morgan";
+import "dotenv/config";
+import path from "path";
 const app = express();
-const PORT = 3001;
+const PORT = process.env.EXPRESS_PORT;
 app.use(express.json());
+app.use(express.static(path.join(process.cwd(), "dist")));
 morgan.token("body", (req) => {
   return JSON.stringify(req.body);
 });
