@@ -11,7 +11,7 @@ const App = () => {
   const [refresh, setRefresh] = useState(false);
   const [filteresPersonas, setFilteresPersonas] = useState([]);
   const [PositiveNotification, setpositiveNotification] = useState("");
-  const [negativeNotification, setNegativeNotification] = useState('')
+  const [negativeNotification, setNegativeNotification] = useState("");
 
   useEffect(() => {
     axios
@@ -34,8 +34,12 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      {PositiveNotification && <GreenNotification message={PositiveNotification} />}
-      {negativeNotification && <RedNotification message={negativeNotification} />}
+      {PositiveNotification && (
+        <GreenNotification message={PositiveNotification} />
+      )}
+      {negativeNotification && (
+        <RedNotification message={negativeNotification} />
+      )}
       <Search persons={persons} setFilteresPersonas={setFilteresPersonas} />
       <PersonForm
         persons={persons}
@@ -43,7 +47,6 @@ const App = () => {
         setRefresh={setRefresh}
         setGreenNotification={setpositiveNotification}
         setRedNotification={setNegativeNotification}
-        
       />
 
       <h2>Numbers</h2>

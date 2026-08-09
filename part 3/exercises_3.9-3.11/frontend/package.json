@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "npx json-server  db.json --port 3001",
-    "bothServers": "concurrently \"vite\" \"npx json-server  db.json --port 3001\""
+    "bothServers": "concurrently \"vite\" \"nodemon  ..\\backend\\express.js \""
   },
   "dependencies": {
     "axios": "^1.19.0",

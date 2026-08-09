@@ -8,8 +8,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon index.js",
-    "start":"node express.js"
+    "addFrontend": "powershell if(Test-Path ..\\frontend\\dist\\ ) {if (Test-Path .\\dist\\) { Remove-Item .\\dist\\ -Recurse ; Copy-Item -path ..\\frontend\\dist\\  -Destination .\\ -Recurse } else { Copy-Item -path ..\\frontend\\dist\\ -Destination .\\ -Recurse }} else { Write-Host \"Run npm run build in your frontend directory \" }",
+    "server": "nodemon express.js",
+    "start": "node express.js"
   },
   "dependencies": {
     "dotenv": "^17.4.2",
