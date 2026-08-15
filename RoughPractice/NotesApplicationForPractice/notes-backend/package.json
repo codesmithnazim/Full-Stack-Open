@@ -8,7 +8,7 @@
     "test": "cross-env  NODE_ENV=test node --test",
     "lint": "eslint ."
   },
-  "author": "Matti Luukkainen",
+  "author": "Code Smith Nazim",
   "license": "MIT",
   "description": "",
   "dependencies": {
