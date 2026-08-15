@@ -1,0 +1,30 @@
+GET http://localhost:3001/info
+
+
+### 
+GET  http://localhost:3001/api/persons/(*!*537b5a03-e1a2-45fb-8c98-1e1b6ba671e8
+
+
+###
+DELETE  http://localhost:3001/api/persons/b91baf3f-4fd3-4e68-9227-80a6e0aa2eb1
+
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Asad ",
+  "phone": " "
+}
+
+
+###
+DELETE http://localhost:3001/api/persons/4fe83264-6ae1-4172-ae1d-1d4cfa24a633
+
+
+###
+PATCH http://localhost:3001/api/persons/ee6b9ae3-3bcd-4980-be95-85e2f3b310b6
+Content-Type: application/json
+
+{"newNumber":"03705138055"}

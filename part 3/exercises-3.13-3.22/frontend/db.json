@@ -1,0 +1,90 @@
+{
+  "persons": [
+    {
+      "name": "javeed ali",
+      "number": "+92131",
+      "id": "JBxyJrptEGY"
+    },
+    {
+      "name": "jawasd",
+      "number": "321312",
+      "id": "mW-npMvYS1g"
+    },
+    {
+      "name": "ali zaman",
+      "number": "13231231",
+      "id": "Ha04NDq2064"
+    },
+    {
+      "name": "Wajid Ullah",
+      "number": "+92 1231231",
+      "id": "Ml3P6sxhPX4"
+    },
+    {
+      "name": "Faizan",
+      "number": "=93231",
+      "id": "OiEKgId0L74"
+    },
+    {
+      "name": "Zaar Wali Khan",
+      "number": "+92 1231231213",
+      "id": "-BsYlRSUMDA"
+    },
+    {
+      "name": "Farhad Khan",
+      "number": "+92 3131231",
+      "id": "AviFGvCCDHQ"
+    },
+    {
+      "name": "Safwan Khan",
+      "number": "+92131231",
+      "id": "-BkO1At-Ygw"
+    },
+    {
+      "name": "",
+      "number": "",
+      "id": "6k6D-7Jw0VA"
+    },
+    {
+      "name": "Kamran",
+      "number": "+92 31231",
+      "id": "gIuuKvp6_m8"
+    },
+    {
+      "name": "jjklajdalksjda",
+      "number": "fsdfsd",
+      "id": "nHDsoG1Ul24"
+    },
+    {
+      "name": "jisdjdklasj",
+      "number": "uiweoufsd",
+      "id": "nC9Egietd_U"
+    },
+    {
+      "name": "j.ksdahkjdha",
+      "number": "hjkfsdhfjsdfs",
+      "id": "aEIQepERFbM"
+    },
+    {
+      "name": "Javaid electrician",
+      "number": "+9231321",
+      "id": "3bQ6nHDAt1w"
+    },
+    {
+      "name": "jklj",
+      "number": "ksajda",
+      "id": "LGjMTtrknZQ"
+    },
+    {
+      "name": "kjcxzjz",
+      "number": "jklj",
+      "id": "mXNY-dfAjnk"
+    },
+    {
+      "name": "jkldkja",
+      "number": "jdkassda",
+      "id": "rf7wQOr4jOU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
