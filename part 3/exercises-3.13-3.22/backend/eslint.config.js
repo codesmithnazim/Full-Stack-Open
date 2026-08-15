@@ -30,7 +30,6 @@ export default defineConfig([
       globals: globals.node,
     },
     rules: {
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-console": 0,          // nudge toward a real logger, don't block it
       "eqeqeq": "error",
       "curly": "error",

@@ -37,7 +37,6 @@ export default defineConfig([
       // Warns if a file mixes component exports with other exports —
       // that combo breaks Vite's Fast Refresh
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
-      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-console": 0,
       "eqeqeq": "error",
       "prefer-const": "error",

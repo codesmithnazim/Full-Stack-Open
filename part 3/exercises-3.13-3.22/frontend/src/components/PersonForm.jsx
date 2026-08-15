@@ -27,7 +27,7 @@ function PersonForm({
         )
       ) {
         // Find and search are working for same purpose but search return us an array while find return us the first founded object only not array
-        let _id = persons.find((each) => each.name === form.name)._id; //Here we'll get the id of the specific person we want to change the number
+        const _id = persons.find((each) => each.name === form.name)._id; //Here we'll get the id of the specific person we want to change the number
         // let id=array[0].id
         console.log("Ok, we are replacing the phone number of the person with id = ", _id);
 
@@ -86,11 +86,11 @@ function PersonForm({
           error?.response?.data?.error,
         );
         // let message = `${Object.entries(error?.response?.data?.message).map(([key, value]) => value)} Number already exists`;
-        let message = error?.response?.data?.error
+        const message = error?.response?.data?.error
         setRedNotification(message);
         setTimeout(() => {
           setRedNotification("");
-        }, 15000);
+        }, 2500);
       });
     // form.name("");
     // form.number("");
