@@ -7,4 +7,5 @@ const error = (...params) => {
 }
 
 // module.exports = { info, error }
-export const logger= { info, error }
+export default { info, error }
+// export default logger

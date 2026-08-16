@@ -7,10 +7,10 @@ const notesRouter = express.Router();
 
 import { Note } from "../models/note.model.js";
 
-notesRouter.get("/", (request, response) => {
+notesRouter.get("/", (request, response, next) => {
   Note.find({}).then((notes) => {
     response.json(notes);
-  });
+  }).catch(error => next(error))
 });
 
 notesRouter.get("/:id", (request, response, next) => {

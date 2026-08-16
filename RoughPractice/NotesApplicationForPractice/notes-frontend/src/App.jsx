@@ -13,7 +13,7 @@ const App = () => {
   useEffect(() => {
     noteService.getAll().then(initialNotes => {
       setNotes(initialNotes)
-    })
+    }).catch(error=> setErrorMessage(error.response.data.error))
   }, [])
 
   const addNote = event => {
@@ -26,6 +26,11 @@ const App = () => {
     noteService.create(noteObject).then(returnedNote => {
       setNotes(notes.concat(returnedNote))
       setNewNote('')
+    }).catch(error=>{ setErrorMessage(error.response.data.error)
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000)
+      
     })
   }
 
@@ -40,11 +45,11 @@ const App = () => {
       })
       .catch(error => {
         setErrorMessage(
-          `Note '${note.content}' was already removed from server`
+          error.response.data.error
         )
         setTimeout(() => {
           setErrorMessage(null)
-        }, 5000)
+        }, 3000)
         setNotes(notes.filter(n => n.id !== id))
       })
   }
@@ -58,7 +63,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
-      <Notification message={errorMessage} />
+    {errorMessage &&  <Notification message={errorMessage} />}
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? 'important' : 'all'}
