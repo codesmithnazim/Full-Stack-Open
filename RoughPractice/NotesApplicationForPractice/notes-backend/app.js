@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import {config} from "./utils/config.js";
 import {logger} from "./utils/logger.js";
 import {middleware} from "./utils/middleware.js";
-// import notesRouter from "./controllers/notes.js";
+import {notesRouter} from "./controllers/notes.controller.js";
 
 const app = express();
 
@@ -20,11 +20,11 @@ mongoose
     logger.error("error connection to MongoDB:", error.message);
   });
 
-app.use(express.static("dist"));
+// app.use(express.static("dist"));
 app.use(express.json());
 app.use(middleware.requestLogger);
 
-// app.use("/api/notes", notesRouter);
+app.use("/api/notes", notesRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);

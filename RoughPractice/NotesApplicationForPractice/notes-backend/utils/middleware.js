@@ -1,4 +1,3 @@
-// const logger = require('./logger')
 import {logger} from "./logger.js";
 
 const requestLogger = (request, response, next) => {
