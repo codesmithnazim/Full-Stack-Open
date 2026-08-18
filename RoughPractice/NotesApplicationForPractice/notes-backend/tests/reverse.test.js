@@ -1,22 +1,21 @@
-const { test } = require('node:test')
-const assert = require('node:assert')
-
-const reverse = require('../utils/for_testing').reverse
+import  { test } from 'node:test'
+import assert from 'node:assert'
+import dummyTest from "../utils/for_testing.js"
 
 test('reverse of a', () => {
-  const result = reverse('a')
+  const result = dummyTest.reverse('a')
 
   assert.strictEqual(result, 'a')
 })
 
 test('reverse of react', () => {
-  const result = reverse('react')
+  const result =dummyTest.reverse('react')
 
   assert.strictEqual(result, 'tcaer')
 })
 
 test('reverse of saippuakauppias', () => {
-  const result = reverse('saippuakauppias')
+  const result = dummyTest.reverse('saippuakauppias')
 
   assert.strictEqual(result, 'saippuakauppias')
 })
