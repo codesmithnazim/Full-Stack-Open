@@ -1,13 +1,51 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
-import { after, describe, test } from "node:test";
+import { after, describe, test, beforeEach } from "node:test";
 import { app } from "../app.js";
 import assert from "assert";
+import { Note } from "../models/note.model.js";
 import logger from "../utils/logger.js";
 const api = supertest(app);
 
+const notes = [
+  {
+    content: "good ",
+    important: Math.random() > 0.5,
+  },
+  {
+    content: "HTML is easy",
+    important: Math.random() > 0.5,
+  },
+  {
+    content: "testing through supertest",
+    important: Math.random() > 0.5,
+  },
+];
+
+beforeEach(async () => {
+  // It'll run bedore each test
+  await Note.deleteMany({});
+  //   let newNote = new Note(notes[0]);
+  //   await newNote.save();
+  //   newNote = new Note(notes[1]);
+  //   await newNote.save();
+  //   newNote = new Note(notes[2]);
+  //   await newNote.save();
+  //   await notes.forEach(async (note) => {
+  //     let newNote = new Note(note);
+  //     await newNote.save();
+  //   });
+
+//   for (const element of notes) {
+//     const newNote = new Note(element);
+//     await newNote.save();
+//   }
+
+await Promise.all(notes.map(note => {const newNote=new Note(note); return newNote.save()})) // Most recommnded method, but you can use the for-of loop as well
+});
+
 describe("Tests made on the notes of the app", () => {
-  test("the data type of response will be object ", async () => {
+  test("the data type of response will be object", async () => {
     await api
       .get("/api/notes")
       .expect(200)
@@ -22,18 +60,23 @@ describe("Tests made on the notes of the app", () => {
       .expect("Content-Type", /application\/json/);
   });
 
-  test("Checking the total number of notes present in the database ", async () => {
+  test.only("Checking the total number of notes present in the database ", async () => {
     // logger.info("❌❣❣❣❣❣❣🏆🏆✔✔✔",response?._body)
-    assert.strictEqual(
-      await api.get("/api/notes").then((res) => res._body.length), 3, );
+    const { _body } = await api.get("/api/notes");
+    console.log("the response having all the notes = ", _body);
+    assert.strictEqual(_body.length, notes.length);
+  });
+  
+  test("Testing the existence of one note among all returned notes ", async () => {
+    const { _body } = await api.get("/api/notes");
+    const notes = _body.map((note) => note.content);
+    //  assert.strictEqual(notes.includes('good '),true ,"our note is not present in the returned docs of DB ")
+    assert(
+      notes.includes("good "),
+      "our note is not present in the returned docs of DB ",
+    );
   });
 });
-
-test('Testing the existence of one note among all returned notes ',async () => {
-   const {_body}=  await api.get('/api/notes')
-   const isPresent= _body.map(note => note.content).includes('good')
-    assert.strictEqual(isPresent,true ,"our note is not present in the returned docs of DB ")
-})
 
 after(async () => {
   await mongoose.connection.close();

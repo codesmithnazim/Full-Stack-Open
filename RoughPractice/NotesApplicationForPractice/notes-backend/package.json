@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development node --watch index.js",
-    "test": "cross-env NODE_ENV=test  node --test",
+    "start": "cross-env NODE_ENV=PRODUCTION node index.js",
+    "dev": "cross-env NODE_ENV=DEVELOPMENT node --watch index.js",
+    "test": "cross-env NODE_ENV=TEST  node --test",
     "lint": "eslint ."
   },
   "author": "Code Smith Nazim",

@@ -7,7 +7,7 @@ import {notesRouter} from "./controllers/notes.controller.js";
 
 const app = express();
 
-console.log("The mongoDB url =", config.MONGODB_URI, "and the PORT = ", config.PORT)
+logger.info("The mongoDB url =", config.MONGODB_URI, "and the PORT = ", config.PORT)
 
 logger.info("connecting to", config.MONGODB_URI);
 
