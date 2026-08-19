@@ -77,14 +77,14 @@ describe("Tests made on the notes of the app", () => {
       content: "I'm a note created for testing purpose only",
       imporatn: Math.random() > 0.5,
     };
-   await api
+    await api
       .post("/api/notes")
       .send(newNote)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
     const allNotes = await api.get("/api/notes");
-    assert.strictEqual(allNotes.length, notes.length+1 )
+    assert.strictEqual(allNotes.length, notes.length + 1);
   });
 });
 
