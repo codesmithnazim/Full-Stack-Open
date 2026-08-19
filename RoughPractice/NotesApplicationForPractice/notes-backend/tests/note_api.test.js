@@ -6,21 +6,7 @@ import assert from "assert";
 import { Note } from "../models/note.model.js";
 import logger from "../utils/logger.js";
 const api = supertest(app);
-
-const notes = [
-  {
-    content: "good ",
-    important: Math.random() > 0.5,
-  },
-  {
-    content: "HTML is easy",
-    important: Math.random() > 0.5,
-  },
-  {
-    content: "testing through supertest",
-    important: Math.random() > 0.5,
-  },
-];
+import helper from './testHelper.js'
 
 beforeEach(async () => {
   // It'll run bedore each test
@@ -32,7 +18,7 @@ beforeEach(async () => {
   //   }
 
   await Promise.all(
-    notes.map((note) => {
+    helper.notes.map((note) => {
       const newNote = new Note(note);
       return newNote.save();
     }),
@@ -55,11 +41,11 @@ describe("Tests made on the notes of the app", () => {
       .expect("Content-Type", /application\/json/);
   });
 
-  test.only("Checking the total number of notes present in the database ", async () => {
+  test.only("Checking the total number of notes present in the database", async () => {
     // logger.info("❌❣❣❣❣❣❣🏆🏆✔✔✔",response?._body)
     const { _body } = await api.get("/api/notes");
     console.log("the response having all the notes = ", _body);
-    assert.strictEqual(_body.length, notes.length);
+    assert.strictEqual(_body.length, helper.notes.length);
   });
 
   test("Testing the existence of one note among all returned notes ", async () => {
@@ -74,7 +60,7 @@ describe("Tests made on the notes of the app", () => {
 
   test("Can we add a valid note?", async () => {
     const newNote = {
-      content: "I'm a note created for testing purpose only",
+      content: "I'm a note created during testing",
       imporatn: Math.random() > 0.5,
     };
     await api
@@ -83,8 +69,23 @@ describe("Tests made on the notes of the app", () => {
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
-    const allNotes = await api.get("/api/notes");
-    assert.strictEqual(allNotes.length, notes.length + 1);
+    const { _body } = await api.get("/api/notes");
+    assert.strictEqual(_body.length, helper.notes.length + 1);
+    assert.strictEqual(
+      _body
+        .map((each) => each.content)
+        .includes("I'm a note created during testing "),
+      false,
+    );
+  });
+
+  test("test for checking that note without content will not be stored",async () => {
+    const newNote = {
+      important: true,
+    };
+   await api.post("/api/notes").send(newNote).expect(400);
+    const {_body} =await api.get('/api/notes')
+    assert.strictEqual(_body.length, helper.notes.length)
   });
 });
 
