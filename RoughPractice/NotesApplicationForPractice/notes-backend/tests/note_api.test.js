@@ -25,23 +25,18 @@ const notes = [
 beforeEach(async () => {
   // It'll run bedore each test
   await Note.deleteMany({});
-  //   let newNote = new Note(notes[0]);
-  //   await newNote.save();
-  //   newNote = new Note(notes[1]);
-  //   await newNote.save();
-  //   newNote = new Note(notes[2]);
-  //   await newNote.save();
-  //   await notes.forEach(async (note) => {
-  //     let newNote = new Note(note);
+
+  //   for (const element of notes) {
+  //     const newNote = new Note(element);
   //     await newNote.save();
-  //   });
+  //   }
 
-//   for (const element of notes) {
-//     const newNote = new Note(element);
-//     await newNote.save();
-//   }
-
-await Promise.all(notes.map(note => {const newNote=new Note(note); return newNote.save()})) // Most recommnded method, but you can use the for-of loop as well
+  await Promise.all(
+    notes.map((note) => {
+      const newNote = new Note(note);
+      return newNote.save();
+    }),
+  ); // Most recommnded method, but you can use the for-of loop as well
 });
 
 describe("Tests made on the notes of the app", () => {
@@ -66,7 +61,7 @@ describe("Tests made on the notes of the app", () => {
     console.log("the response having all the notes = ", _body);
     assert.strictEqual(_body.length, notes.length);
   });
-  
+
   test("Testing the existence of one note among all returned notes ", async () => {
     const { _body } = await api.get("/api/notes");
     const notes = _body.map((note) => note.content);
@@ -75,6 +70,21 @@ describe("Tests made on the notes of the app", () => {
       notes.includes("good "),
       "our note is not present in the returned docs of DB ",
     );
+  });
+
+  test("Can we add a valid note?", async () => {
+    const newNote = {
+      content: "I'm a note created for testing purpose only",
+      imporatn: Math.random() > 0.5,
+    };
+   await api
+      .post("/api/notes")
+      .send(newNote)
+      .expect(201)
+      .expect("Content-Type", /application\/json/);
+
+    const allNotes = await api.get("/api/notes");
+    assert.strictEqual(allNotes.length, notes.length+1 )
   });
 });
 

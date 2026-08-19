@@ -6,6 +6,7 @@ import express from "express";
 const notesRouter = express.Router();
 
 import { Note } from "../models/note.model.js";
+import logger from "../utils/logger.js";
 
 notesRouter.get("/", (request, response, next) => {
   Note.find({}).then((notes) => {
@@ -25,6 +26,7 @@ notesRouter.get("/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
+
 notesRouter.post("/", (request, response, next) => {
   const body = request.body;
 
@@ -36,10 +38,19 @@ notesRouter.post("/", (request, response, next) => {
   note
     .save()
     .then((savedNote) => {
-      response.json(savedNote);
+      response.status(201).json(savedNote);
     })
     .catch((error) => next(error));
 });
+
+
+notesRouter.delete('/deleteone',async () => {
+ const allNotes= await Note.find({})
+ const deleteNote= await allNotes[0].deleteOne()
+ logger.info("The deleted note ", deleteNote)
+})
+
+
 
 notesRouter.delete("/:id", (request, response, next) => {
   Note.findByIdAndDelete(request.params.id)
@@ -67,5 +78,8 @@ notesRouter.put("/:id", (request, response, next) => {
     })
     .catch((error) => next(error));
 });
+
+
+
 
 export { notesRouter };
