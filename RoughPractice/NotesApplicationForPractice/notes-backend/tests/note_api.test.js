@@ -4,9 +4,8 @@ import { after, describe, test, beforeEach } from "node:test";
 import { app } from "../app.js";
 import assert from "assert";
 import { Note } from "../models/note.model.js";
-import logger from "../utils/logger.js";
 const api = supertest(app);
-import helper from './testHelper.js'
+import testHelper from "./testHelper.js";
 
 beforeEach(async () => {
   // It'll run bedore each test
@@ -18,7 +17,7 @@ beforeEach(async () => {
   //   }
 
   await Promise.all(
-    helper.notes.map((note) => {
+    testHelper.notes.map((note) => {
       const newNote = new Note(note);
       return newNote.save();
     }),
@@ -42,10 +41,9 @@ describe("Tests made on the notes of the app", () => {
   });
 
   test.only("Checking the total number of notes present in the database", async () => {
-    // logger.info("❌❣❣❣❣❣❣🏆🏆✔✔✔",response?._body)
     const { _body } = await api.get("/api/notes");
     console.log("the response having all the notes = ", _body);
-    assert.strictEqual(_body.length, helper.notes.length);
+    assert.strictEqual(_body.length, testHelper.notes.length);
   });
 
   test("Testing the existence of one note among all returned notes ", async () => {
@@ -70,7 +68,7 @@ describe("Tests made on the notes of the app", () => {
       .expect("Content-Type", /application\/json/);
 
     const { _body } = await api.get("/api/notes");
-    assert.strictEqual(_body.length, helper.notes.length + 1);
+    assert.strictEqual(_body.length, testHelper.notes.length + 1);
     assert.strictEqual(
       _body
         .map((each) => each.content)
@@ -79,13 +77,26 @@ describe("Tests made on the notes of the app", () => {
     );
   });
 
-  test("test for checking that note without content will not be stored",async () => {
+  test("test for checking that note without content will not be stored", async () => {
     const newNote = {
       important: true,
     };
-   await api.post("/api/notes").send(newNote).expect(400);
-    const {_body} =await api.get('/api/notes')
-    assert.strictEqual(_body.length, helper.notes.length)
+    await api.post("/api/notes").send(newNote).expect(400);
+    const { _body } = await api.get("/api/notes");
+    assert.strictEqual(_body.length, testHelper.notes.length);
+  });
+
+  test("A specific note can be viewed", async () => {
+    const allNotes = await testHelper.notesInDP();
+    const notetoView = allNotes[2];
+    console.log("the expected note ",notetoView)
+    // console.log(notetoView._id.toString());
+    const specificNote = await api
+      .get(`/api/notes/${notetoView.id}`)
+      .expect(200)
+      .expect("Content-Type", /application\/json/);
+    console.log("the actual note ",specificNote._body);
+    // assert.strictEqual(specificNote._body, notetoView)
   });
 });
 

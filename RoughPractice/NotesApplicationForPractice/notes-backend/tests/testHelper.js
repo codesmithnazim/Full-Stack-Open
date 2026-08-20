@@ -1,9 +1,6 @@
 import { Note } from "../models/note.model.js";
-import beforeEach from "node:test"
-// import logger from "../utils/logger.js";
-
 const notes = [
-  {
+{
     content: "good ",
     important: Math.random() > 0.5,
   },
@@ -18,5 +15,10 @@ const notes = [
 ];
 
 
+const notesInDP= async () => {
+  const allNotes= await Note.find({})
+  return allNotes.map(note => note.toJSON())
+}
+
         
-export default {notes}
+export default {notes, notesInDP}

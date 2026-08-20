@@ -10,7 +10,7 @@ import logger from "../utils/logger.js";
 
 notesRouter.get("/", (request, response, next) => {
   Note.find({}).then((notes) => {
-    response.json(notes);
+    response.status(200).json(notes);
   }).catch(error => next(error))
 });
 
@@ -18,7 +18,7 @@ notesRouter.get("/:id", (request, response, next) => {
   Note.findById(request.params.id)
     .then((note) => {
       if (note) {
-        response.json(note);
+        response.status(200).json(note);
       } else {
         response.status(404).end();
       }
