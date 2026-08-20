@@ -18,8 +18,9 @@ beforeEach(async () => {
 
   await Promise.all(
     testHelper.notes.map((note) => {
-      const newNote = new Note(note);
-      return newNote.save();
+      // const newNote = new Note(note);
+      // return newNote.save();
+   return  Note.create(note)
     }),
   ); // Most recommnded method, but you can use the for-of loop as well
 });
@@ -96,7 +97,7 @@ describe("Tests made on the notes of the app", () => {
       .expect(200)
       .expect("Content-Type", /application\/json/);
     console.log("the actual note ",specificNote._body === specificNote.body);
-    console.log("Is sane reference ", specificNote.body === notetoView, Object.is(specificNote.body, notetoView))
+    console.log("Is same reference ", specificNote.body === notetoView, Object.is(specificNote.body, notetoView))
     assert.deepStrictEqual(specificNote.body, notetoView)
   });
 
