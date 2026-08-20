@@ -99,6 +99,15 @@ describe("Tests made on the notes of the app", () => {
     console.log("Is sane reference ", specificNote.body === notetoView, Object.is(specificNote.body, notetoView))
     assert.deepStrictEqual(specificNote.body, notetoView)
   });
+
+
+  test('A specific note can be deleted',async () => {
+    const allNotes=await testHelper.notesInDP()
+    const secondNote= allNotes[0]    
+    const deletedItem= await api.delete(`/api/notes/${secondNote.id}`).expect(204).expect('Content-Type', /application\/json/)
+    assert.deepStrictEqual(deletedItem.body,secondNote)
+  })
+  
 });
 
 after(async () => {

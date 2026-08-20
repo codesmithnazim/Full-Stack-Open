@@ -11,9 +11,9 @@ import logger from "../utils/logger.js";
 notesRouter.get("/", async (request, response, next) => {
   try {
     const notes = await Note.find({});
-    response.status(200).send(notes);
+    response.status(200).json(notes); // res.status(200).send(notes) does the same thing, but not recommended because first think and decide the header type of response and the data going as response which will take our resources usage.
   } catch (error) {
-    next(error); 
+    next(error);
   }
 });
 
@@ -21,7 +21,7 @@ notesRouter.get("/:id", (request, response, next) => {
   Note.findById(request.params.id)
     .then((note) => {
       if (note) {
-        response.status(200).send(note);
+        response.status(200).json(note);
       } else {
         response.status(404).end();
       }
@@ -40,7 +40,7 @@ notesRouter.post("/", (request, response, next) => {
   note
     .save()
     .then((savedNote) => {
-      response.status(201).send(savedNote);
+      response.status(201).json(savedNote);
     })
     .catch((error) => next(error));
 });
@@ -52,9 +52,10 @@ notesRouter.delete("/deleteone", async () => {
 });
 
 notesRouter.delete("/:id", (request, response, next) => {
-  Note.findByIdAndDelete(request.params.id)
-    .then(() => {
-      response.status(204).end();
+  Note.findByIdAndDelete(request.params.id,{new: true, runValidators: true, context: true})
+    .then((deletedItem) => {
+      logger.info("the deleted doc ", deletedItem)
+      response.status(200).send(deletedItem);
     })
     .catch((error) => next(error));
 });
@@ -72,7 +73,7 @@ notesRouter.put("/:id", (request, response, next) => {
       note.important = important;
 
       return note.save().then((updatedNote) => {
-        response.status(200).send(updatedNote);
+        response.json(updatedNote);
       });
     })
     .catch((error) => next(error));
