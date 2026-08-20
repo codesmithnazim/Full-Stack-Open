@@ -96,7 +96,7 @@ describe("Tests made on the notes of the app", () => {
       .expect(200)
       .expect("Content-Type", /application\/json/);
     console.log("the actual note ",specificNote._body);
-    // assert.strictEqual(specificNote._body, notetoView)
+    assert.strictEqual(specificNote._body, notetoView)
   });
 });
 
