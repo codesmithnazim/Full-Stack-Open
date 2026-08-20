@@ -77,7 +77,7 @@ describe("Tests made on the notes of the app", () => {
     );
   });
 
-  test("test for checking that note without content will not be stored", async () => {
+  test("test for checking that note without content will not be stored", async ()=> {
     const newNote = {
       important: true,
     };
@@ -95,8 +95,9 @@ describe("Tests made on the notes of the app", () => {
       .get(`/api/notes/${notetoView.id}`)
       .expect(200)
       .expect("Content-Type", /application\/json/);
-    console.log("the actual note ",specificNote._body);
-    assert.strictEqual(specificNote._body, notetoView)
+    console.log("the actual note ",specificNote._body === specificNote.body);
+    console.log("Is sane reference ", specificNote.body === notetoView, Object.is(specificNote.body, notetoView))
+    assert.deepStrictEqual(specificNote.body, notetoView)
   });
 });
 
