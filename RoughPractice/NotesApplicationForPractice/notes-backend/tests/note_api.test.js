@@ -10,12 +10,6 @@ import testHelper from "./testHelper.js";
 beforeEach(async () => {
   // It'll run bedore each test
   await Note.deleteMany({});
-
-  //   for (const element of notes) {
-  //     const newNote = new Note(element);
-  //     await newNote.save();
-  //   }
-
   await Promise.all(
     testHelper.notes.map((note) => {
       // const newNote = new Note(note);
@@ -104,8 +98,9 @@ describe("Tests made on the notes of the app", () => {
 
   test('A specific note can be deleted',async () => {
     const allNotes=await testHelper.notesInDP()
+    console.log('All the notes before deletion ', allNotes)
     const secondNote= allNotes[0]    
-    const deletedItem= await api.delete(`/api/notes/${secondNote.id}`).expect(204).expect('Content-Type', /application\/json/)
+    const deletedItem= await api.delete(`/api/notes/${secondNote.id}`).expect(200).expect('Content-Type', /application\/json/)
     assert.deepStrictEqual(deletedItem.body,secondNote)
   })
   

@@ -1,4 +1,0 @@
-DELETE http://localhost:3000/api/notes/6a86c577b7525e9ddc55eac2
-
-###
-DELETE http://localhost:3000/api/notes/deleteone

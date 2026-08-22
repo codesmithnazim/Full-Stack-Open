@@ -7,6 +7,12 @@ const noteSchema = new mongoose.Schema({
     minlength: 5,
   },
   important: Boolean,
+  user: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Users",
+    },
+  ],
 });
 
 // noteSchema.set("toJSON", {
@@ -17,7 +23,7 @@ const noteSchema = new mongoose.Schema({
 //   },
 // });
 
-// Object.defineProperty(noteSchema, 'toJSON', {
+// Object.defineProperty(noteSchema, 'toJSON', {  // the mongoose system will overwite our written toJSON with built in  toJSON
 //   transform:(document, returnedDocument) => {
 //     returnedDocument.id= returnedDocument._id.toString();
 //     delete  returnedDocument._id;
@@ -25,13 +31,13 @@ const noteSchema = new mongoose.Schema({
 //   }
 // })
 
-noteSchema.set("toJSON",{
-  transform:( originalDoc, returnedDoc) => {
-    returnedDoc.id = returnedDoc._id.toString()
-    delete returnedDoc._id
-    delete returnedDoc.__v
-  }
-})
+noteSchema.set("toJSON", {
+  transform: (originalDoc, returnedDoc) => {
+    returnedDoc.id = returnedDoc._id.toString();
+    delete returnedDoc._id;
+    delete returnedDoc.__v;
+  },
+});
 
 // noteSchema.toJSON = function () {
 //   return ({
