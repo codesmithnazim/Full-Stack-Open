@@ -5,13 +5,13 @@ import { app } from "../app.js";
 import assert from "assert";
 import { Note } from "../models/note.model.js";
 const api = supertest(app);
-import testHelper from "./testHelper.js";
+import notestestHelper from "./notestestHelper.js";
 
 beforeEach(async () => {
   // It'll run bedore each test
   await Note.deleteMany({});
   await Promise.all(
-    testHelper.notes.map((note) => {
+    notestestHelper.notes.map((note) => {
       // const newNote = new Note(note);
       // return newNote.save();
    return  Note.create(note)
@@ -38,7 +38,7 @@ describe("Tests made on the notes of the app", () => {
   test.only("Checking the total number of notes present in the database", async () => {
     const { _body } = await api.get("/api/notes");
     console.log("the response having all the notes = ", _body);
-    assert.strictEqual(_body.length, testHelper.notes.length);
+    assert.strictEqual(_body.length, notestestHelper.notes.length);
   });
 
   test("Testing the existence of one note among all returned notes ", async () => {
@@ -63,7 +63,7 @@ describe("Tests made on the notes of the app", () => {
       .expect("Content-Type", /application\/json/);
 
     const { _body } = await api.get("/api/notes");
-    assert.strictEqual(_body.length, testHelper.notes.length + 1);
+    assert.strictEqual(_body.length, notestestHelper.notes.length + 1);
     assert.strictEqual(
       _body
         .map((each) => each.content)
@@ -78,11 +78,11 @@ describe("Tests made on the notes of the app", () => {
     };
     await api.post("/api/notes").send(newNote).expect(400);
     const { _body } = await api.get("/api/notes");
-    assert.strictEqual(_body.length, testHelper.notes.length);
+    assert.strictEqual(_body.length, notestestHelper.notes.length);
   });
 
   test("A specific note can be viewed", async () => {
-    const allNotes = await testHelper.notesInDP();
+    const allNotes = await notestestHelper.notesInDP();
     const notetoView = allNotes[2];
     console.log("the expected note ",notetoView)
     // console.log(notetoView._id.toString());
@@ -97,7 +97,7 @@ describe("Tests made on the notes of the app", () => {
 
 
   test('A specific note can be deleted',async () => {
-    const allNotes=await testHelper.notesInDP()
+    const allNotes=await notestestHelper.notesInDP()
     console.log('All the notes before deletion ', allNotes)
     const secondNote= allNotes[0]    
     const deletedItem= await api.delete(`/api/notes/${secondNote.id}`).expect(200).expect('Content-Type', /application\/json/)
