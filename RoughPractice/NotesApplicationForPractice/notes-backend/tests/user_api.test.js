@@ -5,6 +5,7 @@ import { app } from "../app.js";
 import { User } from "../models/user.model.js";
 import userstestHelper from "./userstestHelper.js";
 import bcrypt from "bcrypt";
+import assert from "node:assert";
 const api = supertest(app);
 
 beforeEach(async () => { 
@@ -36,6 +37,44 @@ describe("CRUD operations on users", () => {
       .expect(201)
       .expect("Content-Type", /application\/json/);
   });
+
+  test('Users with same email are not allowed', async () => {
+    const allUsersAtStart= await userstestHelper.usersInDP()
+    console.log('allUsersAtStart = ', allUsersAtStart.length)
+       const userObj = {
+      name: "johnDoe",
+      email: "AbdulBasit@gmail.com",
+      password: "1232(&^^^%#$#@^38~!232fhgfhf./,.'l'8",
+      notes: "6a871f013799ccd479e4e1e7",
+    };
+    const newUser = await api.post('/api/users').send(userObj).expect(400).expect('Content-Type', /application\/json/)
+    const allUsersAtEnd= await userstestHelper.usersInDP()
+    console.log('allUsersAtEnd = ', allUsersAtEnd.length)
+    console.log("the error we get from the backend server",newUser.body.error)
+    assert.strictEqual(newUser.body.error.includes('the email is already taken out'), true)
+    assert.strictEqual(allUsersAtStart.length, allUsersAtEnd.length)
+
+  })
+
+  test('Email should be structurally valid',async () => {
+        const userObj = {
+      name: "johnDoe",
+      password: "1232(&^^^%#$#@^38~!232fhgfhf./,.'l'8",
+      email: "johnDoe78gmail.com",
+      notes: "6a871f013799ccd479e4e1e7",
+    };
+
+    const newUser = await api
+      .post("/api/users")
+      .send(userObj)
+      .expect(400)
+      .expect("Content-Type", /application\/json/);
+      
+      assert.strictEqual(newUser.body.error.includes('Please fill a valid email address'), true)
+  })
+
+  
+
 });
 
 after(async () => {

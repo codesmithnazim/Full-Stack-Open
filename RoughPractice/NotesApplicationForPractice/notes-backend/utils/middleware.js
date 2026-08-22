@@ -13,7 +13,7 @@ const unknownEndpoint = (request, response) => {
 };
 
 const errorHandler = (error, request, response, next) => {
-  logger.error(error.name ,'-.--.-', error.message);
+  logger.error(error.name, "-.--.-", error.message);
 
   if (error.name === "CastError") {
     return response.status(400).send({ error: "malformatted id" });
@@ -21,7 +21,8 @@ const errorHandler = (error, request, response, next) => {
     return response.status(400).json({ error: error.message });
   } else if (error.name === "MongoServerError" && error.code === 11000) {
     return response.status(400).json({ error: "Entries must be unique" });
-  }
+  } else if (error.name === "MongooseError")
+    return response.status(400).json({ error: error?.message }); // this middleware will be executed if the error statements of schema executed in case of error name "MongooseError", first time I saw error with this name due to error statement in uniqueness of email, and the error statement was "Users with same email are not allowed"
 
   next(error);
 };

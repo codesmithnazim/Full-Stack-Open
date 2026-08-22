@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "name": "CodeSmithNazim",
-  "email": "codeSmithNazim@gmail.com",
+  "email": "abdulbasith797gmail.com",
   "password": "1232(&^^^%!232fhgfhf./,.'l'8",
   "notes": "6a871f013799ccd479e4e1e7"
 }

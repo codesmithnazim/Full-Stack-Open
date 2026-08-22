@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: [true, "Email address is required"],
-    unique: true,
+    unique: [true, 'the email is already taken out'],
     lowercase: true,
     trim: true,
     match: [
