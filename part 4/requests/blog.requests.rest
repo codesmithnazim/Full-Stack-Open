@@ -1,0 +1,41 @@
+GET http://localhost:3000/api/blogs
+
+
+###
+GET http://localhost:3000/api/blogs/67c2ee98bfd7e820dd7cd659
+
+
+###
+POST http://localhost:3000/api/blogs
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNmFjMGEyOGFmMzA2MjM4NjU2MmMxNWQ2IiwiZW1haWwiOiJhcm1hbkBnbWFpbC5jb20iLCJpYXQiOjE3OTEwMDk0MTh9.3DW5O76rT-wNgOgg3TEwUDvcCxfh8ONz9-s61GWPHYo
+
+{
+  "title": "Now the authenticaion is wokring very fine  ",
+  "author": "jacob viwen",
+  "url": "hjkhkjhkkljjjhjkhkhk.jkhkjh",
+  "user": "6a89952e5d94d796736cdf1a"
+}
+
+
+###
+DELETE http://localhost:3000/api/blogs/5a422a851b54a676234d17f7
+
+
+###
+PUT http://localhost:3000/api/blogs/67cadab408282ee8ed1e61d0
+Content-Type: application/json
+
+{
+  "content": "HTML is easy",
+  "important": true
+}
+
+
+###
+PATCH  http://localhost:3000/api/blogs/5a422aa71b54a676234d17f8
+Content-Type: application/json
+
+{
+  "likes": 100
+}
