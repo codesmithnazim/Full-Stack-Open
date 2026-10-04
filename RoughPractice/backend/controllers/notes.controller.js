@@ -12,7 +12,7 @@ import logger from "../utils/logger.js";
 notesRouter.get("/", async (request, response, next) => {
   try {
     const notes = await Note.find({});
-    response.status(200).json(notes); // res.status(200).send(notes) does the same thing, but not recommended because first think and decide the header type of response and the data going as response which will take our resources usage.
+    response.status(200).json({notes}); // res.status(200).send(notes) does the same thing, but not recommended because .send() first think and decide the header type of response and this decision will cause  our resources usage.
   } catch (error) {
     next(error);
   }

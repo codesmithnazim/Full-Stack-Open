@@ -6,11 +6,11 @@ const noteSchema = new mongoose.Schema({
     required: true,
     minlength: 5,
   },
-  important: Boolean,
+  important: { type: Boolean, default: false },
   user: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
     },
   ],
 });
@@ -39,12 +39,5 @@ noteSchema.set("toJSON", {
   },
 });
 
-// noteSchema.toJSON = function () {
-//   return ({
-//     content: "wow",
-//     important: true,
-//     id: Math.random() * 435,
-//   })
-// };
 
-export const Note = mongoose.model("mainpracticeapp'snotes", noteSchema);
+export const Note = mongoose.model("Note", noteSchema);
